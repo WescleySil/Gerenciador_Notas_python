@@ -27,4 +27,34 @@ alunos = [
 aprovados = filtrar_aprovados(alunos)
 alunosEsperados = [{'nome': 'Brenda', 'notas': [8, 5, 9]}, {'nome': 'Kayque', 'notas': [7, 7, 7]}]
 print("Segundo teste OK") if aprovados == alunosEsperados else print("Segundo teste Falhou")
-#Fim do teste
+#Fim do teste   
+
+# Closure para armazenar e recuperar notas de um aluno específico
+def criar_closure_notas(notas_iniciais):
+    notas = notas_iniciais.copy()  # Armazena as notas do aluno
+
+    def adicionar_nota(nova_nota):
+        nonlocal notas  # Permite modificar a variável `notas` do escopo externo
+        notas.append(nova_nota)
+
+    def obter_notas():
+        return notas
+
+    # Retorna um dicionário com as funções do closure
+    return {
+        'adicionar_nota': adicionar_nota,
+        'obter_notas': obter_notas
+    }
+
+# Exemplo de uso do closure
+aluno_brenda = criar_closure_notas(aluno_1[0].get('notas'))
+
+# Adicionando uma nova nota
+aluno_brenda['adicionar_nota'](7)
+
+# Recuperando as notas
+notas_brenda = aluno_brenda['obter_notas']()
+
+# Verificando se as notas foram adicionadas corretamente
+notas_esperadas = [8, 5, 9, 7]
+print("Terceiro teste OK") if notas_brenda == notas_esperadas else print("Terceiro teste Falhou")
