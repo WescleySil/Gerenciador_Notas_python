@@ -58,3 +58,14 @@ notas_brenda = aluno_brenda['obter_notas']()
 # Verificando se as notas foram adicionadas corretamente
 notas_esperadas = [8, 5, 9, 7]
 print("Terceiro teste OK") if notas_brenda == notas_esperadas else print("Terceiro teste Falhou")
+
+# Função de alta ordem que aplica uma operação para todos os alunos
+def aplicar_funcao_a_todos(alunos, funcao):
+    return [funcao(aluno['notas']) for aluno in alunos]
+
+# Aplicar a função calcular_media a todos os alunos
+medias = aplicar_funcao_a_todos(alunos, calcular_media)
+
+# Verificar se as médias foram calculadas corretamente
+medias_esperadas = [7.33, 6.0, 7.0]
+print("Quarto teste OK") if medias == medias_esperadas else print("Quarto teste Falhou")
